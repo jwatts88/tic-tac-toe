@@ -1,0 +1,189 @@
+from IPython.display import clear_output
+
+# Example gameboard
+def game_board(board_list):
+    
+    print ('Input your 0 or X using the numbers for example an X in the bottom left would be X = 1')
+    print (board_list[6],'|',board_list[7],'|',board_list[8])
+    print ('---------')
+    print (board_list[3],'|',board_list[4],'|',board_list[5])
+    print ('---------')
+    print (board_list[0],'|',board_list[1],'|',board_list[2])
+    
+# Useer input choose X or 0
+def user_input():
+    
+    choice = 'Wrong'
+    acceptable_values = ['0','X']
+    
+    while choice not in acceptable_values:
+        
+        choice = input ('Choose to be 0 or X : ')
+        
+        if choice not in acceptable_values:
+            print('Sorry, invalid choice - nought/zero not the letter O! ')
+    
+    global player1
+    global player2
+    
+    if choice == 'X':
+        player1 = 'X'
+    else:
+        player1 = '0'
+    
+    if player1 == 'X':
+        player2 = '0'
+    else:
+        player2 = 'X'
+    
+    
+    print (f'player 1 = {player1}')
+    print (f'player 2 = {player2}')
+    
+
+# Choosing a location on the board from 1 - 9
+def position_choice_player1():
+    
+    choice1 = 'Wrong'
+    
+    while choice1 not in board_list:
+        
+        choice1 = input(f'Player 1 pick a position for your {player1} on the tic tac toe board 1 - 9: ')
+        
+        if choice1 not in board_list:
+            print('Sorry, invalid choice! Note, you cannot overwrite a chosen position.')
+    
+    print (choice1)
+    
+    
+    board_list[int(choice1)-1] = player1
+    
+    board_list_game[int(choice1)-1] = player1 
+
+
+def position_choice_player2():
+    
+    choice2 = 'Wrong'
+    
+    while choice2 not in board_list:
+        
+        choice2 = input(f'Player 2 pick a position for your {player2} on the tic tac toe board from 1 - 9: ')
+        
+        if choice2 not in board_list:
+            print('Sorry, invalid choice! Note, you cannot overwrite a chosen position.')
+    
+    print (choice2)
+    
+    board_list[int(choice2)-1] = player2
+    
+    board_list_game[int(choice2)-1] = player2 
+    
+# The winning positions defined    
+def winning_position(board_list_game):
+
+    winner1 = [f'{player1}',f'{player1}',f'{player1}']
+    
+    winner2 = [f'{player2}',f'{player2}',f'{player2}']
+    
+    if winner1 == board_list_game[0:3]:
+        print (f'{player1} wins via a row')
+    elif winner1 == board_list_game[3:6]:
+        print (f'{player1} wins via a row')
+    elif winner1 == board_list_game[6:9]:
+        print (f'{player1} wins via a row')
+    elif winner1 == board_list_game[0:7:3]:
+        print (f'{player1} wins via a column')
+    elif winner1 == board_list_game[1:8:3]:
+        print (f'{player1} wins via a column')
+    elif winner1 == board_list_game[2:9:3]:
+        print (f'{player1} wins via a column')    
+    elif winner1 == board_list_game[0:9:4]:
+        print (f'{player1} wins via a diagonal')
+    elif winner1 == board_list_game[2:8:2]:
+        print (f'{player1} wins via a diagonal') 
+    
+    elif winner2 == board_list_game[0:3]:
+        print (f'{player2} wins via a row')
+    elif winner2 == board_list_game[3:6]:
+        print (f'{player2} wins via a row')
+    elif winner2 == board_list_game[6:9]:
+        print (f'{player2} wins via a row')
+    elif winner2 == board_list_game[0:7:3]:
+        print (f'{player2} wins via a column')
+    elif winner2 == board_list_game[1:8:3]:
+        print (f'{player2} wins via a column')
+    elif winner2 == board_list_game[2:9:3]:
+        print (f'{player2} wins via a column')    
+    elif winner2 == board_list_game[0:9:4]:
+        print (f'{player2} wins via a diagonal')
+    elif winner2 == board_list_game[2:8:2]:
+        print (f'{player2} wins via a diagonal')
+    else:
+        return 0
+
+# Play again option
+def play_game_repeat():
+    
+    choice = 'Wrong'
+    acceptable_values = ['Y','N']
+    
+    while choice not in acceptable_values:
+
+        choice = input ('Do you want to play tic tac toe again -> Y or N : ')
+
+        if choice not in acceptable_values:
+            print('Sorry, invalid choice, Y for yes or N for no')
+            
+        clear_output()
+
+        if choice == 'Y':
+            game_play()
+            
+        else:
+            print('Thanks for playing')
+            break
+
+def game_play():
+    
+    global board_list
+    global board_list_game
+    board_list = ['1','2','3','4','5','6','7','8','9']
+    board_list_game = [' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    
+    # Start the game
+    user_input()
+
+    # The example board with numbers representing locations of X or 0
+    game_board(board_list)
+
+    # The interactive game
+    while winning_position(board_list_game) == 0:
+
+        position_choice_player1()
+        clear_output()
+
+        game_board(board_list_game)
+
+        if winning_position(board_list_game) != 0:
+            break
+
+        if ' ' not in board_list_game:
+            print ('Its a draw')
+            break
+
+        position_choice_player2()
+        clear_output()
+
+        game_board(board_list_game)
+
+        if winning_position(board_list_game) != 0:
+            break
+
+        if ' ' not in board_list_game:
+            print ('Its a draw')
+            break
+
+    play_game_repeat()
+    
+    
+# To play the game type the function game_play()
