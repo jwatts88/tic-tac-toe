@@ -99,7 +99,7 @@ def winning_position(board_list_game):
         print (f'{player1} wins via a column')    
     elif winner1 == board_list_game[0:9:4]:
         print (f'{player1} wins via a diagonal')
-    elif winner1 == board_list_game[2:8:2]:
+    elif winner1 == board_list_game[2:7:2]:
         print (f'{player1} wins via a diagonal') 
     
     elif winner2 == board_list_game[0:3]:
@@ -116,7 +116,7 @@ def winning_position(board_list_game):
         print (f'{player2} wins via a column')    
     elif winner2 == board_list_game[0:9:4]:
         print (f'{player2} wins via a diagonal')
-    elif winner2 == board_list_game[2:8:2]:
+    elif winner2 == board_list_game[2:7:2]:
         print (f'{player2} wins via a diagonal')
     else:
         return 0
